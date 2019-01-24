@@ -8,6 +8,7 @@ h1 {
 	color: #003333;
 	font-size: 60px;
 	text-align: left;
+	font-weight: 1900;
 }
 h4 {
 	color: white;
@@ -63,7 +64,7 @@ p {
 			if(i<pixel_ids.length-1)
 				url+=",";
 		}
-		close();
+		pixel_ids=[];
 		var win = window.open(url);
 		win.focus();
 	}
