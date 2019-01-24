@@ -1,12 +1,13 @@
 <html>
-<body background="#FFFFFF">
+
+
+<h1>The $400 homepage</h1>
 <style>
-<h1>Defined: {DIMENSION}</h1>
 
 h1 {
-	color: white;
+	color: #003333;
+	font-size: 60px;
 	text-align: left;
-	background: #ff6f00;
 }
 h4 {
 	color: white;
@@ -20,7 +21,9 @@ p {
 .info {
 	text-align: center;
 }
+
 </style>
+<body style="background-color:powderblue;">
 
 
 <script type="text/javascript">
@@ -29,13 +32,26 @@ p {
 	{
 		var childs = document.getElementById(clicked_id).children;
 		for (i = 0; i < childs.length; i++) {
-			childs[i].style.width = "97px";
-            childs[i].style.height = "97px";
-			childs[i].style.border='2px solid #E8272C';
+			childs[i].style.width = "40px";
+            childs[i].style.height = "40px";
+			childs[i].style.border='4px solid #003333';
 		}
 		pixel_ids.push(clicked_id);
 
 	}
+	function open_pixel_link(link)
+    {
+        var win = window.open(link);
+		win.focus();
+    }
+
+
+	document.onkeydown = function(evt) {
+		evt = evt || window.event;
+		if (evt.keyCode == 13) {
+			openInNewTab();
+		}
+	};
 
 	function openInNewTab() 
 	{
@@ -47,13 +63,13 @@ p {
 			if(i<pixel_ids.length-1)
 				url+=",";
 		}
+		close();
 		var win = window.open(url);
 		win.focus();
 	}
 </script>
 
-<h1>The $400 homepage</h1>
-<p>
+
 <?php
 require_once('sql_conn.php');
 require_once('defines.php');
@@ -68,11 +84,8 @@ if ($response) {
 	if(! $opendir = opendir($dir)) {
 		echo "opendir error<br>";
 	}
-	while ($row = mysqli_fetch_array($response)) {
-		// if($row['id'] % DIMENSION == 0) {
-		// 	echo "<br>\n";
-		// }
-
+	while ($row = mysqli_fetch_array($response)) 
+	{
 		$id = "id".$row['id'];
 		echo "\t<style>\n";
         echo "\t#".$id."\n";
@@ -83,10 +96,17 @@ if ($response) {
 		echo "\t\tclip: rect(".$row['top']."px,".$row['righ']."px,".$row['bottom']."px,".$row['lef']."px)\n";
         echo "\t}\n";
         echo "\t#".$id." img { width: ".$row['width']."px; height: ".$row['height']."px; }\n";
-    	echo "\t</style>\n";
-		echo "\t<div id=\"".$id."\"  onClick=\"pixel_click(this.id)\"><img src=".$row['image_path']." > </div>\n";
-		// echo "\t<img src=".$row['image_path'].">\n";
-
+		echo "\t</style>\n";
+		echo "\t<div id=\"".$id."\" ";
+		if($row['link'] == "None")
+		{
+			echo "onClick=\"pixel_click(this.id)\"";
+		}
+		else
+		{
+			echo "onClick=\"open_pixel_link('".$row['link']."')\"";
+		}
+		echo "><img src=".$row['image_path']." > </div>\n";
 	}
 }
 else {
@@ -96,6 +116,5 @@ else {
 mysqli_close($dbc);
 ?>
 </p>
-<button  onClick="openInNewTab()">upload</button>
 </body>
 </html>

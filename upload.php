@@ -95,7 +95,6 @@ if ($uploadOk == 0) {
         {
             $posx=@mysqli_query($dbc,"select posx from Pixels where id=".$img_ids[0]);
             $posy=@mysqli_query($dbc,"select posy from Pixels where id=".$img_ids[0]);
-            echo "wtfselect posy from Pixels where id=".$img_ids[0];
 
             if (mysqli_num_rows($posx) > 0) {
                 while($row = mysqli_fetch_assoc($posx)) {
@@ -115,6 +114,7 @@ if ($uploadOk == 0) {
 
             $query =   "update ".TABLE_NAME;
             $query .= " set image_path='http://localhost/project/uploads/".$_FILES["fileToUpload"]["name"]."',";
+            $query .= " link='".$_POST['website_link']."',";
             $query .= " width=".strval($row_size*SIZE).",";
             $query .= " height=".strval($col_size*SIZE).",";
             $query .= " top=".$crops[$i]->top.",";
@@ -129,7 +129,6 @@ if ($uploadOk == 0) {
             {
                 echo "error in query ".$query;
             }
-
         }
 
         $dir = "./images";
@@ -139,4 +138,7 @@ if ($uploadOk == 0) {
         echo "Sorry, there was an error uploading your file.";
     }
 }
+
+mysqli_close($dbc);
+header("Location: http://localhost/project/index.php");
 ?>

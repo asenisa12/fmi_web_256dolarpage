@@ -44,15 +44,15 @@ if (mysqli_query($conn, $create_table_query)) {
 }
 
 echo "Initializing database\n";
-$default_image = '\'http://localhost/project/images/click.jpg\'';
-$default_size = 100;
+$default_image = '\'http://localhost/project/images/dolar.png\'';
+$default_size = SIZE;
 $id = 0;
-for($y = 100; $y < DIMENSION*$default_size; $y+=$default_size) 
+for($y = SIZE*2; $y < DIMENSION*$default_size; $y+=$default_size) 
 {
 	for($x = 0; $x < DIMENSION*$default_size; $x+=$default_size) 
 	{
 		$query =  'insert into '.TABLE_NAME.' values('.$id.', \'None\', '.$default_image.',';
-		$query .= $default_size.','.$default_size.','.$x.','.$y.', 0, 100, 100, 0);';
+		$query .= $default_size.','.$default_size.','.$x.','.$y.', 0, '.SIZE.', '.SIZE.', 0);';
 		if(!mysqli_query($conn, $query)) {
 			echo "Some error occured: ".mysqli_error($conn);
 			die();

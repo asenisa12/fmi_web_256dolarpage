@@ -6,6 +6,6 @@ DEFINE ('DB_PASSWORD', '');
 DEFINE ('DB_HOST', 'localhost');
 DEFINE ('DB_NAME', 'Pixels');
 DEFINE ('TABLE_NAME', 'Pixels');
-DEFINE ('SIZE', 100);
-DEFINE ('DIMENSION', 20); // If this is changed, the style for diplaying should be updated.
+DEFINE ('SIZE', 50);
+DEFINE ('DIMENSION', 40); // If this is changed, the style for diplaying should be updated.
 ?>
