@@ -79,7 +79,8 @@ if ($response) {
         echo "\t{\n";
         echo "\t\tposition: absolute;\n";
         echo "\t\tleft:".$row['posx']."px;\n";
-        echo "\t\ttop:".$row['posy']."px;\n";
+		echo "\t\ttop:".$row['posy']."px;\n";
+		echo "\t\tclip: rect(".$row['top']."px,".$row['righ']."px,".$row['bottom']."px,".$row['lef']."px)\n";
         echo "\t}\n";
         echo "\t#".$id." img { width: ".$row['width']."px; height: ".$row['height']."px; }\n";
     	echo "\t</style>\n";
